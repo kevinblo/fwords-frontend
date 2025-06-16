@@ -1,0 +1,60 @@
+const profileScreenTranslation = {
+  en: {
+    profile: {
+      title: 'Profile',
+      edit: 'Edit Profile',
+      settings: 'Settings',
+      settingsLanguages: 'Studied Languages',
+      darkMode: 'Dark Mode',
+      appLanguage: 'App Language',
+      activeLanguage: 'Active Language',
+      nativeLanguage: 'Native Language',
+      notSet: 'Not set',
+      english: 'English',
+      russian: 'Русский',
+      notifications: 'Notifications',
+      more: 'More',
+      preferences: 'Preferences',
+      privacy: 'Privacy & Security',
+      help: 'Help & Support',
+      signOut: 'Sign Out',
+      signOutConfirm: 'Are you sure you want to sign out?',
+      signOutTitle: 'Sign Out',
+      cancel: 'Cancel',
+      version: 'Version {{version}}',
+      userName: 'User Name',
+      userEmail: 'user@example.com',
+      languageLevel: 'Language Level',
+    }
+  },
+  ru: {
+    profile: {
+      title: 'Профиль',
+      edit: 'Редактировать профиль',
+      settings: 'Настройки',
+      settingsLanguages: 'Изучаемые языки',
+      darkMode: 'Тёмная тема',
+      appLanguage: 'Язык приложения',
+      activeLanguage: 'Активный язык',
+      nativeLanguage: 'Родной язык',
+      notSet: 'Не установлен',
+      english: 'Английский',
+      russian: 'Русский',
+      notifications: 'Уведомления',
+      more: 'Ещё',
+      preferences: 'Предпочтения',
+      privacy: 'Конфиденциальность и безопасность',
+      help: 'Помощь и поддержка',
+      signOut: 'Выйти',
+      signOutConfirm: 'Вы уверены, что хотите выйти?',
+      signOutTitle: 'Выйти',
+      cancel: 'Отмена',
+      version: 'Версия {{version}}',
+      userName: 'Имя пользователя',
+      userEmail: 'user@example.com',
+      languageLevel: 'Уровень владения',
+    }
+  }
+};
+
+export default profileScreenTranslation;

@@ -1,0 +1,58 @@
+const wordQuizTranslations = {
+  en: {
+    questionLabel: "What is the right translation of:",
+    setLanguagesError: 'Set your native and active language in profile',
+    languagesTheSame: 'Native and active language can\'t be the same',
+    noWordsAvailable: 'No words available for quiz',
+    failedToLoadWords: 'Failed to load quiz words. Please try again.',
+    vocabularyQuiz: 'Vocabulary Quiz',
+    quizResults: 'Quiz Results',
+    quizCompleted: 'Quiz Completed!',
+    yourScore: 'Your Score',
+    correctOutOf: 'correct out of',
+    questions: 'questions',
+    excellentWork: 'Excellent work!',
+    goodJob: 'Good job!',
+    niceEffort: 'Nice effort!',
+    keepPracticing: 'Keep practicing!',
+    finish: 'Finish',
+    goBack: 'Go Back',
+    question: 'Question',
+    of: 'of',
+    submitAnswer: 'Check Answer',
+    nextQuestion: 'Next Question',
+    seeResults: 'See Results',
+    whatIsTranslation: 'What is the translation of',
+    failedToLoadQuizDetails: 'Failed to load quiz details.'
+  },
+  ru: {
+    questionLabel: "Правильный перевод у слова:",
+    setLanguagesError: 'Установите родной и изучаемый язык в профиле',
+    languagesTheSame: 'Родной и изучаемый язык не могут совпадать',
+    noWordsAvailable: 'Нет доступных слов для викторины',
+    failedToLoadWords: 'Не удалось загрузить слова для викторины. Попробуйте снова.',
+    vocabularyQuiz: 'Викторина по словарю',
+    quizResults: 'Результаты викторины',
+    quizCompleted: 'Викторина завершена!',
+    yourScore: 'Ваш результат',
+    correctOutOf: 'правильных из',
+    questions: 'вопросов',
+    excellentWork: 'Отличная работа!',
+    goodJob: 'Хорошая работа!',
+    niceEffort: 'Хорошая попытка!',
+    keepPracticing: 'Продолжайте практиковаться!',
+    finish: 'Завершить',
+    goBack: 'Назад',
+    question: 'Вопрос',
+    of: 'из',
+    submitAnswer: 'Проверить ответ',
+    nextQuestion: 'Следующий вопрос',
+    seeResults: 'Посмотреть результаты',
+    whatIsTranslation: 'Как переводится',
+    failedToLoadQuizDetails: 'Не удалось загрузить детали викторины.'
+  },
+};
+
+export type WordQuizTranslationKey = keyof typeof wordQuizTranslations["en"];
+
+export default wordQuizTranslations;
