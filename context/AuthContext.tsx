@@ -1,4 +1,4 @@
-import {createContext, ReactNode, useContext, useEffect, useRef, useState} from 'react';
+import {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {router} from 'expo-router';
 import {loginUser, refreshToken, registerUser, User} from '@/api/auth';
@@ -36,26 +36,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [refreshIntervalId, setRefreshIntervalId] = useState<NodeJS.Timeout | null>(null);
-  const mounted = useRef(true);
-
-  useEffect(() => {
-    mounted.current = true;
-    return () => {
-      mounted.current = false;
-    };
-  }, []);
-
-  const safeSetUser = (userData: User | null) => {
-    if (mounted.current) {
-      setUser(userData);
-    }
-  };
-
-  const safeSetIsLoading = (loading: boolean) => {
-    if (mounted.current) {
-      setIsLoading(loading);
-    }
-  };
 
   const refreshUser = async () => {
     try {
@@ -73,7 +53,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         active_language: profileData.active_language
       };
       
-      safeSetUser(userData);
+      setUser(userData);
       
       // Update AsyncStorage with fresh user data
       await AsyncStorage.setItem('user', JSON.stringify(userData));
@@ -138,7 +118,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             await AsyncStorage.setItem('activeLanguage', profileData.active_language);
           }
 
-          safeSetUser(userData);
+          setUser(userData);
           setupRefreshInterval();
           console.log('[DEBUG] loadUser: user set and refresh interval started');
         } catch (error: any) {
@@ -147,7 +127,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             console.log('[DEBUG] loadUser: TokenExpiredError detected - global handler will manage redirect');
             // Don't call signOut here as the global handler in api.ts will handle the redirect
             // Just clear the local state
-            safeSetUser(null);
+            setUser(null);
             if (refreshIntervalId) {
               clearInterval(refreshIntervalId);
               setRefreshIntervalId(null);
@@ -158,7 +138,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           const userJson = await AsyncStorage.getItem('user');
           if (userJson) {
             const userData = JSON.parse(userJson);
-            safeSetUser(userData);
+            setUser(userData);
             setupRefreshInterval();
             console.log('[DEBUG] loadUser: loaded user from AsyncStorage as fallback');
           } else {
@@ -184,7 +164,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     } catch (error) {
       console.error('[DEBUG] loadUser: Failed to load user:', error);
     } finally {
-      safeSetIsLoading(false);
+      setIsLoading(false);
       console.log('[DEBUG] loadUser: end');
     }
   };
@@ -237,7 +217,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       // We just need to clean up the local state here
       if (error.message.includes('Failed to refresh token')) {
         console.log('[DEBUG] refreshUserToken: Refresh token expired, cleaning up state');
-        safeSetUser(null);
+        setUser(null);
         if (refreshIntervalId) {
           clearInterval(refreshIntervalId);
           setRefreshIntervalId(null);
@@ -250,7 +230,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      safeSetIsLoading(true);
+      setIsLoading(true);
       
       console.log('[DEBUG] signIn: start');
       const { user: userData, accessToken, refreshToken: newRefreshToken } = await loginUser(email, password);
@@ -265,7 +245,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       
       // Set user directly instead of calling loadUser to avoid infinite loop
       console.log('[DEBUG] signIn: setting user state');
-      safeSetUser(userData);
+      setUser(userData);
       setupRefreshInterval();
       
       console.log('[DEBUG] signIn: redirecting to /(tabs)/');
@@ -275,14 +255,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
       console.error('[DEBUG] signIn: Sign in failed:', error);
       throw error;
     } finally {
-      safeSetIsLoading(false);
+      setIsLoading(false);
       console.log('[DEBUG] signIn: end');
     }
   };
 
   const signUp = async (name: string, email: string, password: string, confirmPassword: string) => {
     try {
-      safeSetIsLoading(true);
+      setIsLoading(true);
       
       const { user: userData } = await registerUser(name, email, password, confirmPassword);
       
@@ -296,7 +276,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       console.error('Sign up failed:', error);
       throw error;
     } finally {
-      safeSetIsLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -341,7 +321,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
       
       // Очистка состояния
-      safeSetUser(null);
+      setUser(null);
       
       // Очистка интервала обновления токена
       if (refreshIntervalId) {
