@@ -4,8 +4,7 @@ import {LanguageLevel, LanguageProgress, LanguageProgressResponse, QuizProgress,
 import {RandomWordsResponse, Word, WordDetails, WordFromAPI} from '@/types/word';
 import {User} from '@/types/user';
 
-// const API_BASE_URL = Constants.expoConfig?.extra?.API_BASE_URL || 'https://lbook.ru/api/v1';
-const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL || 'https://lbook.ru/api/v1';
 
 // Helper function to get auth header
 async function getAuthHeader() {

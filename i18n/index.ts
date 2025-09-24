@@ -54,7 +54,7 @@ const i18n = new I18n({
 });
 
 i18n.defaultLocale = 'ru';
-i18n.locale = Localization.locale.split('-')[0];
+i18n.locale = Localization.locale?.split('-')[0] || i18n.defaultLocale;
 console.log('[i18n] Set locale:', i18n.locale);
 i18n.enableFallback = true;
 console.log('[i18n] i18n initialized:', {
